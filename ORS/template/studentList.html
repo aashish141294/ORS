@@ -1,0 +1,150 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        txt = ""
+        $('#select_all').on('click', function () {
+            if (this.checked) {
+                $('.checkbox').each(function () {
+                    this.checked = true;
+                    txt = $(this).val();
+                });
+            } else {
+                $('.checkbox').each(function () {
+                    this.checked = false;
+                    txt = $(this).val();
+                });
+            }
+        });
+        $('.checkbox').on('click', function () {
+            if ($('.checkbox:checked').length == $('.checkbox').length) {
+                $('#select_all').prop('checked', true);
+                txt = $(this).val();
+
+            } else {
+                $('#select_all').prop('checked', false);
+                txt = $(this).val();
+            }
+        });
+        $('#ids').val(txt)
+    });
+</script>
+{% include  "./header.html" %}
+<html lang="en">
+<head>
+    <title>Document</title>
+    <script type="text/javascript">
+        $(function () {
+            setTimeout(function () {
+                $("#timeout").fadeOut(1000);
+            }, 2000)
+
+        })
+    </script>
+</head>
+<body style="background-color: whitesmoke;background-image:url(https://images.pexels.com/photos/305821/pexels-photo-305821.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940); background-repeat:no-repeat;width: 100%; background-size: cover ">	
+<h1 align="center">Student List</h1>
+    <div class="container-fluid">    
+        <form method="POST">
+           
+            <div class="form-group row">
+                <div class="col-lg-5"></div>
+                <div class="col-lg-2">
+                    <input class="form-control input-sm" name="firstName" value="{{ form.firstName }}" placeholder="First Name">
+                </div>
+                <div col-lg-2>
+                    <button class="btn btn-primary btn-sm" type="submit" value="search" >Search
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        
+        
+        <table border="1" width="50%">
+            <div id="timeout" align="center">
+            {% if form.error %}
+            <p  style="color: red;font-size: x-large;"> {{ form.message }}</p>
+            {% else %}
+            <p  style="color:rgb(35, 151, 41);font-size: x-large;"> {{ form.message }}</p>
+            {% endif %}
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-sm table-bordered table-hover table-responsive-sm">
+                    <thead class="thead-dark">
+                        <th><input type="checkbox" id="select_all"onchange="selectAll(this)">Select All</th>
+                        <th scope="row">S.No</th>
+                        <th scope="row">College Name</th>
+                        <th scope="row">First Name</th>
+                        <th scope="row">Last Name</th>
+                        <th scope="row">DOB</th>
+                        <th scope="row">Mobile</th>
+                        <th scope="row">Email</th>
+                        <th scope="row">EDIT</th>
+                    </thead>
+                    <tbody>
+                        {% for e in pageList %}
+                            <tr>
+                                <td><input type="checkbox" name="ids" class="checkbox"onchange="selectone(this)" value="{{ e.id }}"></td>
+                                <td>{{form.index|add:forloop.counter0}}</td>
+                                <td>{{ e.collegeName }}</td>
+                                <td>{{ e.firstName }}</td>
+                                <td>{{ e.lastName }}</td>
+                                <td>{{ e.dob }}</td>
+                                <td>{{ e.mobileNumber }}</td>
+                                <td>{{ e.email }}</td>
+                                <td>
+                                    <a href="/ORS/Student/edit/{{ e.id }}"> 
+                                        <font data-target="#update" data-toggle="modal">
+                                            Edit<i class="fas fa-edit"></i>
+                                        </font>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {% if form.msg %}
+            <div align="center">
+            <b style="font-size:x-large;">{{form.msg}}</b><br>
+            <a class="btn btn-primary" href="/ORS/UserList" >Back</a><br><br>
+            </div>
+            {% else %}
+            {% if form.pageNo == 1 %}
+            <div class="col-lg-1">
+                <input type="submit" disabled class="btn btn-primary float-left" name="operation" name="operation" value="previous">
+            </div>
+            {% else %}
+
+            <div class="col-lg-1">
+                <input type="submit"  class="btn btn-primary" name="operation" name="operation" value="previous">
+            </div>
+            {% endif %}
+            
+            <div class="col-lg-3"></div>
+                <div class="col-lg-2">
+                    <input type="submit" class="btn btn-danger" name="operation" name="operation" value="delete">
+                </div>
+            <div class="col-md-2">
+                <a href="/ORS/Student">
+                    <font class="btn btn-success " data-target="#update" data-toggle="modal">ADD <i class="fas fa-plus-circle"></i></font>
+                </a>
+            </div>
+            <div class="col-lg-3"></div>
+            {% if pageList|length < 5 or form.LastId == form.MaxId %}
+            <div class="col-lg-1">
+                <input type="submit"  disabled  class="btn btn-primary" name="operation"  name="operation" value="next">
+            </div>
+            {% else %}
+            <div class="col-lg-1">
+                <input type="submit"  class="btn btn-primary" name="operation" name="operation" value="next">
+            </div>
+            {% endif %}
+            {% endif %}
+</body>
+    </form>
+</html>
+{% include  "./footer.html" %}

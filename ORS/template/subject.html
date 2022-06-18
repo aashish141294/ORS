@@ -1,0 +1,69 @@
+
+<body style="background-color: whitesmoke;background-image:url(https://images.pexels.com/photos/305821/pexels-photo-305821.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940); background-repeat:no-repeat;width: 100%; background-size: cover ">	
+{% include  "./header.html"%}
+    <div class="container">
+        <div>
+            <H2></H2>
+        </div>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style=" width: 500px;background-color: rgba(255, 255, 255, 0.212);">
+                <div class="modal-header text-center">
+                    <h4 style="font-family: bold; font-size: xx-large;margin-left: 70px;">Subject Information</h4>
+                </div>
+                <div class="modal-body">
+                   <form method="POST">
+
+                        {% if form.error  %}
+                        <p style="color:rgb(255, 0, 0) ;"> {{form.message}}</p>
+                        {% else %}
+                        <p style="color:green ;"> {{form.message}}</p>
+                        {% endif %}
+                        
+                        <input type="hidden" name="id" value="{{form.id}}">
+                        <div class="form-group row">
+                            <div class="col-lg-1"></div>
+                            <label class="col-lg-3 form-control-label">Subject<span style="color: red;"> * </span> </label>
+                            <div class="col-lg-8">
+                                <input class="form-control" name="subjectName" value="{{form.subjectName}}" placeholder="Enter your Subject Name">
+                                <span style="color: red;"> {{form.inputError.subjectName}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-1"></div>
+                            <label class="col-lg-3 form-control-label">Discription <span style="color: red;"> * </span> </label>
+                            <div class="col-lg-8">
+                                <input class="form-control" name="subjectDiscription" value="{{form.subjectDiscription}}" placeholder="Enter your Subject Discription">
+                                <span style="color: red;"> {{form.inputError.subjectDiscription}} </span>
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <div class="col-lg-1"></div>
+                            <label class="col-lg-3 form-control-label">courseName<span style="color: red;">*</span> </label>
+                            <div class="col-lg-8">
+                                <select class="form-control" name="course_ID">
+                                <option value="{{form.course_ID}}">{{form.courseName}}</option>
+                                {% for form in collegeList %}
+                                <option value="{{form.id}}">{{form.courseName}}</option>
+                                {% endfor %}
+                                </select>
+                                <span style="color: red;"> {{form.inputError.course_ID}} </span>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-success" >Save</button>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="" type="reset" class="btn btn-primary" >Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% include  "./footer.html"%}

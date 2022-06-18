@@ -1,0 +1,77 @@
+{% include  "./header.html"%}
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            $("#timeout").fadeOut(1000);
+        }, 2000)
+    })
+</script>
+<body style="background-color: hsl(0, 0%, 96%);background-image:url(https://images.pexels.com/photos/2529973/pexels-photo-2529973.jpeg?cs=srgb&dl=pexels-trace-hudson-2529973.jpg&fm=jpg); background-repeat:no-repeat;width: 100%; background-size: cover"></body>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<br>
+<br>
+{% if request.session.msg != None %}
+<h3 id="timeout" style="color: red;text-align: center;font-family: bold;"> {{request.session.msg}}</h3>
+{% endif %}
+<br>
+{% if form.out %}
+<h3 id="timeout" style="color: green;text-align: center;font-family: bold;"> {{form.out}}</h3>
+{% endif %}
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4" >
+            <div class="modal-content" style="background-color:rgba(250, 234, 237, 0.416); margin-top: 30px;">
+                <div class="card-header ">
+                    <h2 class="modal-title" style="padding-left: 160px; font-family: bold; font-size: xx-large">LogIn</h2>
+                </div>
+                <div class="container-fluid">
+                    {% if form.error  %}
+                    <p align="center" style="color: red;"> {{form.message}}</p>
+                    {% else %}
+                    <p align="center" style="color:green ;"> {{form.message}}</p>
+                    {% endif %}
+                    <form method="POST" novalidate>
+                        <div class="modal-body">
+                            <div class="form-group row">
+                                <label class="col-md-4 form-control-label">Login <span style="color: red;"> * </span> </label>
+                                <div class="col-md-8">
+                                    <input class="form-control" name="login_id" value="{{form.login_id}}" placeholder="Enter your Login ID" type="email">
+                                    <span style="color: red;"> {{form.inputError.login_id}} </span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 form-control-label">Password<span style="color: red;">*</span> </label>
+                                <div class="col-md-8">
+                                    <input class="form-control" name="password" value="{{form.password}}" type="password" placeholder="Enter your Password">
+                                    <span style="color: red;"> {{form.inputError.password}} </span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <label class="col-md-2 control-label"></label>
+                                <div class="col-md-2">
+                                    <button type="submit" value="SingnIn" class="btn btn-primary">Login </button>
+                                </div>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-2">
+                                    <a class="btn btn-success" href="/ORS/Registration">SignUp</a>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                    <a href="/ORS/ForgetPassword" style="color: rgb(0, 0, 0);">forget Password</a>
+                                <div class="col-md-4"></div>
+                            </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>        
+</div>
+{% include  "./footer.html"%}    
+<div class="col-md-4"></div>

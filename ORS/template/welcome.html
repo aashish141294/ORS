@@ -1,0 +1,28 @@
+{% include "./header.html"%}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>welcome</title>
+</head>
+<div class="container" style="cursor:all-scroll">
+<body style="background-color: darkgray; background-image:url(https://images.pexels.com/photos/33545/sunrise-phu-quoc-island-ocean.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1); background-repeat: no-repeat; width: 100%; background-size: cover;">
+</div>    
+</body>
+<style>
+    mark {
+        background-color: #cacfcb9a;
+    }
+</style>
+    <div class="d-flex" style="margin-top: 15%;">
+        <div class="mx-auto">
+            <p>
+                <h1><mark>"WELCOME TO ONLINE RESULT SYSTEM</mark></h1>
+            </p>
+            <h3 style="text-align:center;"><mark>{{form.message}}</mark></h3>
+        </div>
+    </div>
+{% include "./footer.html"%}
+</html>

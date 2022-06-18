@@ -1,0 +1,175 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        txt = ""
+        $('#select_all').on('click', function () {
+            if (this.checked) {
+                $('.checkbox').each(function () {
+                    this.checked = true;
+                    txt = $(this).val();
+                });
+            } else {
+                $('.checkbox').each(function () {
+                    this.checked = false;
+                    txt = $(this).val();
+                });
+            }
+        });
+        $('.checkbox').on('click', function () {
+            if ($('.checkbox:checked').length == $('.checkbox').length) {
+                $('#select_all').prop('checked', true);
+                txt = $(this).val();
+
+            } else {
+                $('#select_all').prop('checked', false);
+                txt = $(this).val();
+            }
+        });
+        $('#ids').val(txt)
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            $("#timeout").fadeOut(1000);
+        }, 2000)
+
+    })
+</script>
+{% include  "./header.html" %}
+<body style="background-color: whitesmoke;background-image:url(https://images.pexels.com/photos/305821/pexels-photo-305821.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940); background-repeat:no-repeat;width: 100%; background-size: cover ">
+<h1 align="center">User List</h1>
+<div class="container-fluid">    
+    <form method="POST">
+       
+        <div class="form-group row">
+            <div class="col-lg-5"></div>
+            <div class="col-lg-2">
+                <input class="form-control input-sm" name="login_id" value="{{ form.login_id }}" placeholder="Login Id">
+            </div>
+            <div col-lg-2>
+                <button class="btn btn-primary btn-sm" type="submit" value="search" >Search
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        <!-- <div class="form-group row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-2">
+                <input class="form-control input-sm" name="login_id" value="{{ form.login_id }}" placeholder="Login Id">
+            </div>
+            <div>
+                <button class="btn btn-primary btn-sm" type="submit" value="search" >Search
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="col-lg-2">
+                <input class="form-control input-sm" name="firstName" value="{{ form.firstName }}" placeholder="First Name">
+            </div>
+            <div>
+                <button class="btn btn-primary btn-sm" type="submit" valur="search">Search
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div> -->
+    
+    
+        <table border="1" width="50%">
+
+        <div id="timeout" align="center">  
+            {% if form.error %}
+                <p style="color:red;font-size: x-large;">{{ form.message }}</p>
+            {% else %}
+                <p style="color:green;font-size: x-large;">{{ form.message }}</p>
+            {% endif %}
+        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-sm table-bordered table-hover table-responsive-sm">
+                        <thead class="thead-dark">
+                        <th><input type="checkbox" id="select_all" onchange="selectAll(this)"> Select All</th>
+                        <th scope="row">S.No</th>
+                        <th scope="row" style="width: 120px">FIRST NAME</th>
+                        <th scope="row" style="width: 120px">LAST NAME</th>
+                        <th scope="row">LOGIN</th>
+                        <th scope="row">DOB</th>
+                        <th scope="row" style="width: 120px">ROLE NAME</th>
+                        <th scope="row">ADDRESS</th>
+                        <th scope="row">GENDER</th>
+                        <th scope="row" style="width: 120px">MOBILE_NO</th>
+                        <th scope="row">EDIT</th>
+                        </thead>
+                        <tbody>
+                        {% for e in pageList %}
+                            {% if e.role_Name == "Admin" %}
+                            <td><input class="checkbox" disabled type="checkbox" name="ids" onchange="selectone(this)" value="{{ e.id }}"></td>
+                            {% else %}
+                            <td><input class="checkbox" type="checkbox" name="ids"onchange="selectone(this)" value="{{ e.id }}"></td>
+                            {% endif %}
+                            <td>{{form.index|add:forloop.counter0}}</td>
+                            <td>{{ e.firstName }}</td>
+                            <td>{{ e.lastName }}</td>
+                            <td>{{ e.login_id }}</td>
+                            <td>{{ e.dob }}</td>
+                            <td>{{ e.role_Name }}</td>
+                            <td>{{ e.address }}</td>
+                            <td>{{ e.gender }}</td>
+                            <td>{{ e.mobilenumber }}</td>
+                            <td>
+                                <a href="/ORS/User/edit/{{ e.id }}" if (e.id==1?readable:false)>Edit
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </table>
+        {% if form.msg %}
+        <div align="center">
+            <b style="font-size:x-large;">{{form.msg}}</b><br>
+            <a class="btn btn-primary" href="/ORS/UserList" >Back</a><br><br>
+        </div>
+        {% else %}
+
+</body>
+            {% if form.pageNo == 1 %}
+                <div class="col-lg-1">
+                    <input type="submit" disabled class="btn btn-primary" name="operation" value="previous">
+                </div>
+            {% else %}
+                <div class="col-lg-1">
+                    <input type="submit"  class="btn btn-primary" name="operation" value="previous">
+                </div>
+            {% endif %}
+                <div class="col-lg-3"></div>
+                <div class="col-lg-2">
+                    <input type="submit" class="btn btn-danger" name="operation" value="delete">
+                </div>
+                <div class="col-md-2">
+                    <a href="/ORS/User">
+                        <font class="btn btn-success " data-target="#update" data-toggle="modal">ADD 
+                            <i class="fas fa-plus-circle"></i>
+                        </font>
+                    </a>
+                </div>
+                <div class="col-lg-3"></div>
+            {% if pageList|length < 5 or form.LastId == form.MaxId %}
+                <div class="col-lg-1">
+                    <input type="submit"  disabled  class="btn btn-primary" name="operation" value="next">
+                </div>
+            {% else %}
+                <div class="col-lg-1">
+                    <input type="submit"  class="btn btn-primary" name="operation" value="next">
+                </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </form>
+</div>  
+
+
+{% include  "./footer.html" %}

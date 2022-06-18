@@ -1,0 +1,76 @@
+{% include  "./header.html"%}
+<body style="background-color: whitesmoke;background-image:url(https://images.pexels.com/photos/305821/pexels-photo-305821.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940); background-repeat:no-repeat;width: 100%; background-size: cover ">
+<div class="container">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style=" width: 550px;background-color: rgba(255, 255, 255, 0.212);">
+            <div class="modal-header text-center">
+                <h4 class="modal-title " style="font-family: bold; font-size: xx-large;margin-left: 50px;">Marksheet Information</h4>
+            </div>
+            <form class="form" method="POST">
+                
+                {% if form.error  %}
+                <p style="color:red ;text-align: center;"> {{form.message}}</p>
+                {% else %}
+                <p style="color:green ; text-align: center;"> {{form.message}}</p>
+                {% endif %}
+                    <div class="modal-body">
+                        <input type="hidden" name="id" value="{{form.id}}">
+                        <div class="form-group row">
+                            <div class="col-lg-1"></div>
+                                <label class="col-lg-3 form-control-label">Roll No.<span style="color: red;"> * </span> </label>
+                            <div class="col-lg-8">
+                                <input class="form-control" name="rollNumber" value="{{form.rollNumber}}" id="rollNumber"  placeholder="Enter your Roll Number">
+                                <span style="color: red;"> {{form.inputError.rollNumber}} </span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-1"></div>
+                                <label class="col-lg-3 form-control-label">Name <span style="color: red;"> * </span> </label>
+                            <div class="col-lg-8">
+                                <input class="form-control" name="name" value="{{form.name}}" placeholder="Enter your Name">
+                                <span style="color: red;"> {{form.inputError.name}} </span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-1"></div>
+                                <label class="col-lg-3 form-control-label">Physics<span style="color: red;"> * </span></label>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="number" id="quantity" min="1" max="100" name="physics" value="{{form.physics}}" placeholder="Enter your Physics Marks">
+                                <span style="color: red;"> {{form.inputError.physics}} </span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-1"></div>
+                                <label class="col-lg-3 form-control-label">Chemistry<span style="color: red;"> * </span></label>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="number"id="quantity" min="1" max="100" name="chemistry" value="{{form.chemistry}}" placeholder="Enter your Chemistry Marks">
+                                <span style="color: red;"> {{form.inputError.chemistry}} </span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-1"></div>
+                                <label class="col-lg-3 form-control-label">Maths<span style="color: red;"> * </span></label>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="number" id="quantity" min="1" max="100" name="maths" value="{{form.maths}}" placeholder="Enter your Maths Marks">
+                                <span style="color: red;"> {{form.inputError.maths}} </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-success" >Save</button>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="" class="btn btn-primary">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+{% include  "./footer.html"%}
+        
